@@ -8,13 +8,6 @@ pipeline {
             description: 'Select the action to perform'
         )
     }
-
-    stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/HardikRaut478/EKS-Cluster.git'
-            }
-        }
     
         stage ("terraform init") {
             steps {
