@@ -8,20 +8,21 @@ pipeline {
             description: 'Select the action to perform'
         )
     }
-    
-        stage ("terraform init") {
+
+    stages {
+        stage("terraform init") {
             steps {
-                sh ("terraform init -reconfigure") 
-            }
-        }
-        
-        stage ("plan") {
-            steps {
-                sh ('terraform plan') 
+                sh("terraform init -reconfigure")
             }
         }
 
-        stage (" Action") {
+        stage("plan") {
+            steps {
+                sh("terraform plan")
+            }
+        }
+
+        stage("Action") {
             steps {
                 script {
                     switch (params.ACTION) {
