@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    environment {
+        AWS_DEFAULT_REGION    = "ap-south-1"
+        AWS_ACCESS_KEY_ID     = credentials('aws-access-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
+    }
+
     parameters {
         choice(
             name: 'ACTION',
@@ -10,19 +16,19 @@ pipeline {
     }
 
     stages {
-        stage("terraform init") {
+        stage("Terraform Init") {
             steps {
-                sh("terraform init -reconfigure")
+                sh "terraform init -reconfigure"
             }
         }
 
-        stage("plan") {
+        stage("Terraform Plan") {
             steps {
-                sh("terraform plan")
+                sh "terraform plan"
             }
         }
 
-        stage("Action") {
+        stage("Terraform Action") {
             steps {
                 script {
                     switch (params.ACTION) {
